@@ -1,15 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.9;
+pragma solidity ^0.8.9;
  
  
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "contracts/SimpleAuction.sol";
+import "./SimpleAuction.sol";
 import "hardhat/console.sol";
 
 contract myNFT is ERC721URIStorage , Ownable, Pausable{
+
+   using Counters for Counters.Counter;
+   Counters.Counter private _tokenIdCounter;
+
    string public nftName;
    string public nftSymbol;
 
@@ -23,7 +27,7 @@ contract myNFT is ERC721URIStorage , Ownable, Pausable{
    nftSymbol = _nftSymbol;
     
    openingTime = block.timestamp;
-   biddingPeriod = openingTime + 5 minutes;
+   biddingPeriod = openingTime + 3 minutes;
 
    simpleAuction = new SimpleAuction(biddingPeriod, payable(msg.sender));
   }
@@ -34,29 +38,30 @@ contract myNFT is ERC721URIStorage , Ownable, Pausable{
     _;
   }
 
-  using Counters for Counters.Counter;
-  Counters.Counter private _tokenIds;
+  modifier whileBidClosed{
+      require(block.timestamp >= biddingPeriod, "Bidding still open");
+      _;
+  }
+
   mapping(string => uint8) hashes;
 
   
   function SetBid() public whileOpen payable {
-    console.log("msg.value %s ", msg.value); 
-    console.log("msg.sender %s ", msg.sender);  
-    simpleAuction.bid();
+    require(msg.value > 0, "Incorrect input");
+    simpleAuction.bid(msg.sender, msg.value);
       }
       
-   function getHighestBidder() external view returns(address, uint){
+   function _getHighestBidder() external view returns(address, uint){
        return simpleAuction.getHighestBidder();
    }  
   
 
-  function mint(uint256 _tokenId, string calldata _uri) external whileOpen {
-    _mint(simpleAuction.highestBidder(), _tokenId);
-    _setTokenURI(_tokenId, _uri);
+  function mint( string calldata _uri) external whileBidClosed {
+    uint256 tokenId = _tokenIdCounter.current();
+    _tokenIdCounter.increment();
+    _safeMint(simpleAuction.highestBidder(), tokenId);
+    _setTokenURI(tokenId, _uri);
 
   }
-
-  
  
 }
-//CONTRACT CODE: 0x4d03745891A926dbdFFe1EAf242c1e93E89514Da

@@ -1,0 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import MyNFT from './MyNFT';
+
+
+ReactDOM.render(
+  <>
+    <MyNFT />
+  </>,
+  document.getElementById('root')
+);
+
+
