@@ -1,8 +1,9 @@
-
+import Navbar from "./Navbar";
 import React, {useState} from 'react';
 import {ethers} from 'ethers';
 import myNFTs from "./myNFTs.json"
 import { create } from 'ipfs-http-client'
+import "./App.css"
 
 const MyNFT = () => {
 
@@ -10,7 +11,7 @@ const MyNFT = () => {
 
       console.log(client);
     
-    const contractAddress = '0x0C3579eC422D350b4905B416B8a3D17Ff8bBB664';
+    const contractAddress = '0x9192aeFC3BaEA6bb7b722A5AA4d5f8525B833eb5';
 
     const[defaultAccount, setDefaultAccount] = useState(null);
     const[errorMessage, setErrorMessage] = useState(null);
@@ -23,7 +24,7 @@ const MyNFT = () => {
     const[provider, setProvider] = useState(null);
     const[signer, setSigner] = useState(null);
     const[contract, setContract] = useState(null);
-
+  
     const connectWalletHandler = () => {
         if(window.ethereum){
             window.ethereum.request({method: 'eth_requestAccounts'})
@@ -105,29 +106,34 @@ const MyNFT = () => {
         }
 
     return(
-        <div>
-            <h4> Place your NFT Bid </h4>
-            <button onClick = {connectWalletHandler}> {connButtonText} </button>
-            <h3>Wallet Address: {defaultAccount} </h3>
-
-            <form onSubmit={setHandler}>
-                <input id ='setBid' type='number'/>
-                <button type ={"submit"}> Bid Amount</button>
-            </form>
-
-            <button onClick ={getCurrentVal}> Highest Bidder </button>
-            {highestBid}
-
-            <button onClick ={() => claimArticleOwnership(1,"Your NFT")}> Mint NFT </button>
-
-            <button onClick ={() => getNFT_Name()}> NFT Name </button>
-            {name}
-
-            <button onClick ={() => getNFT_Symbol()}> NFT Symbol </button>
-            {symbol}
+        
+        <div className ="image-nft">
             
+            <div className ="App-header">
+                
+                <h4 className ="header"> Place your NFT Bid </h4>
+                <button className = "button-73" onClick = {connectWalletHandler}> {connButtonText} </button>
+                <h3>Wallet Address: {defaultAccount} </h3>
 
-            {errorMessage}
+                <form className = "input" onSubmit={setHandler}>
+                    <input id ='setBid' type='number' placeholder ="Enter bid amount"/>
+                    <button className = "button-73" type ={"submit"}> Bid Amount</button>
+                </form>
+                <br/>
+                <button className = "button-73" onClick ={getCurrentVal}> Highest Bidder </button>
+                <h4>{highestBid}</h4>
+                <br/>
+                <button className = "button-71" onClick ={() => claimArticleOwnership(1,"Your NFT")}> Mint NFT </button>
+                <br/>
+                <button className = "button-73" onClick ={() => getNFT_Name()}> NFT Name </button> 
+                <h4>{name}</h4>                
+                <br/>
+                <button className = "button-73" onClick ={() => getNFT_Symbol()}> NFT Symbol </button>
+                <h4>{symbol}</h4>
+                
+
+                {errorMessage}
+            </div>
         </div>
     )
 }

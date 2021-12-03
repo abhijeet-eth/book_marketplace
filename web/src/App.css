@@ -14,19 +14,135 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  animation-duration: 2s;  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(8, 4, 4);
 }
+
+.button { 
+    border: none;
+    padding:10px 24px;;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.button:hover {
+    background-color: #4CAF50; /* Green */
+    color: black;
+    cursor:grabbing  
+}
+
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #010b0c;
+    color: white;
+    font-size: 30px;
+    border-radius: 12px;
+    font-family: cursive;
+  }
 
 .App-link {
   color: #61dafb;
 }
+
+/* CSS */
+.button-71 {
+  background-color: #0078d0;
+  border: 0;
+  border-radius: 56px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  outline: 0;
+  padding: 16px 21px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+<!-- HTML !-->
+<button class="button-73" role="button">Button 73</button>
+
+/* CSS */
+.button-73 {
+  appearance: none;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #ADCFFF 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -.24px;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-73:hover {
+  background-color: #FFC229;
+  box-shadow: #FF6314 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.button-73:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .button-73 {
+    font-size: 1.5rem;
+    padding: .15rem .5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .button-71 {
+    padding: 16px 48px;
+  }
+}
+
+  
+input {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 25px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  }
+  
+
 
 @keyframes App-logo-spin {
   from {
@@ -36,3 +152,8 @@
     transform: rotate(360deg);
   }
 }
+
+.image-nft{
+    background-image: url(./images/NFTT-2.jpg);
+  }
+
