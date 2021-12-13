@@ -9,9 +9,9 @@ const MyNFT = () => {
 
     const client = create('https://ipfs.infura.io:5001/api/v0')
 
-      console.log(client);
+      //console.log(client);
     
-    const contractAddress = '0x9192aeFC3BaEA6bb7b722A5AA4d5f8525B833eb5';
+    const contractAddress = '0x9c54FB4E75D6A1C6ea8c1357585d5765830bC5EF';
 
     const[defaultAccount, setDefaultAccount] = useState(null);
     const[errorMessage, setErrorMessage] = useState(null);
@@ -24,6 +24,7 @@ const MyNFT = () => {
     const[provider, setProvider] = useState(null);
     const[signer, setSigner] = useState(null);
     const[contract, setContract] = useState(null);
+    const[contract2, setContract2] = useState(null);
   
     const connectWalletHandler = () => {
         if(window.ethereum){
@@ -53,6 +54,8 @@ const MyNFT = () => {
 
         let tempContract = new ethers.Contract(contractAddress, myNFTs, tempSigner);  
         setContract(tempContract);  
+        let tempContract2 = new ethers.Contract(contractAddress, myNFTs, tempSigner)
+        setContract2(tempContract2);
     }
         const getCurrentVal = async() => {
            //try {
@@ -96,12 +99,14 @@ const MyNFT = () => {
             } 
 
         const getNFT_Name = async() => {
-            let val = await contract.nftName();
+            let val = await contract2.nftName();
+            console.log(val)
             setName(val);            
         }
 
         const getNFT_Symbol = async() => {
-            let val = await contract.nftSymbol();
+            let val = await contract2.nftSymbol();
+            console.log(val)
             setSymbol(val);
         }
 

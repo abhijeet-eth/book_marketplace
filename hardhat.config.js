@@ -33,7 +33,7 @@ module.exports = {
 
     ganache: {
         url: "HTTP://127.0.0.1:7545",
-        accounts:["91383def2005511f66e6a8e560e3283c3c220c954a3656f8e7516cc887113a63"],
+        accounts:["413b9e67db3cc878ce6ad4aa6da92274f26e4021492a974fc811a24dca665c99"],
       },
   },
   gasReporter: {

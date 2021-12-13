@@ -1,0 +1,7 @@
+            <form className = "input" onSubmit={getBalan}>
+                <input id ='addr' type='text' placeholder ="Enter Address"/>
+                <button className = "button-73" type ={"submit"}> Submit</button>
+                {addrBalance}
+            </form>
+
+            <input id ='addr' value= {ownerBal} onChange={(event)=>getOwnerBalance(event.target.value)} type='text' placeholder ="Address"/>
