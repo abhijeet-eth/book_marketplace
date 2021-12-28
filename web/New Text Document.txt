@@ -1,0 +1,2 @@
+<button className = "button-71" onClick ={() => claimArticleOwnership(1,"Your NFT")}> Mint NFT </button>
+            <br/>

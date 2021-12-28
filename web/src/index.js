@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import MyNFT2 from './MyNFT2';
+import MyNFT3 from './MyNFT3';
 
 
 ReactDOM.render(
   <>
-    <MyNFT2 />
+    <MyNFT3 />
   </>,
   document.getElementById('root')
 );

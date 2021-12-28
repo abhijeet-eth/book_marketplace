@@ -5,9 +5,9 @@ import { create } from 'ipfs-http-client'
 import myNFTs from "./myNFTs.json"
 
 
-const MyNFT2 =() => {
+const MyNFT3 =() => {
 
-    const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; //harhat address
+    const contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'; //harhat address
 
     const client = create('https://ipfs.infura.io:5001/api/v0')
 
@@ -36,6 +36,9 @@ const MyNFT2 =() => {
     const[symbol, setSymbol] = useState(null);    
     const[name, setName] = useState(null);
     const[highestBid, getCurrentHighestBid] = useState(null);
+
+    const [file, setFile] = useState(null);
+    const [urlArr, setUrlArr] = useState([]);
 
     let alertMessage ;
 
@@ -219,22 +222,48 @@ const MyNFT2 =() => {
 
      }
 
-    const claimArticleOwnership =async(tokenid, text="") =>{
-        try{
-        const fileAdded = await client.add(text)
-        const fileHash  = fileAdded.cid.toString()
+    //const claimArticleOwnership =async(tokenid, text="") =>{
+    //    try{
+    //    const fileAdded = await client.add(text)
+     //   const fileHash  = fileAdded.cid.toString()
 
-        console.log(fileHash);
-        const ipfsAddress = `https://ipfs.io/ipfs/${fileHash}/`;
-        console.log(`https://ipfs.io/ipfs/${fileHash}/`);
+    //    console.log(fileHash);
+    //    const ipfsAddress = `https://ipfs.io/ipfs/${fileHash}/`;
+    //    console.log(`https://ipfs.io/ipfs/${fileHash}/`);
         
-         await writeContract.mint(ipfsAddress);
+    //     await writeContract.mint(ipfsAddress);
 
-        } catch(e){
-            throw new Error(e);
+    //    } catch(e){
+    //        throw new Error(e);
+    //    }
+        
+    //}
+
+    const retrieveFile = (e) => {
+        const data = e.target.files[0];
+        const reader = new window.FileReader();
+        reader.readAsArrayBuffer(data);
+    
+        reader.onloadend = () => {
+          setFile(Buffer(reader.result));
+        };
+    
+        e.preventDefault();
+      };
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const created = await client.add(file);
+          const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+          console.log(url);
+          setUrlArr((prev) => [...prev, url]);
+          writeContract.mint(url);
+        } catch (error) {
+          console.log(error.message);
         }
-        
-    }
+      };
 
     const getNFT_Name = async() => {
         let val = await contract.nftName();
@@ -268,19 +297,32 @@ const MyNFT2 =() => {
             <button className = "button-73" onClick ={getCurrentVal}> Highest Bidder </button>
                 <h4>{highestBid}</h4>
 
-            <button className = "button-71" onClick ={() => claimArticleOwnership(1,"Your NFT")}> Mint NFT </button>
-            <br/>
-
             <button className = "button-73" onClick ={() => getNFT_Name()}> NFT Name </button> 
             <h4>{name}</h4>                
             <br/>
             
             <button className = "button-73" onClick ={() => getNFT_Symbol()}> NFT Symbol </button>
             <h4>{symbol}</h4>
+
+
+            <div className="main">
+            <form onSubmit={handleSubmit}>
+            <input type="file" onChange={retrieveFile} />
+            <button className = "button-73" type="submit">MINT</button>
+            </form>
+            </div>
+
+            <div className="display">
+            {urlArr.length !== 0
+            ? urlArr.map((el) => <img src={el} alt="nfts" />)
+            : <h3>Upload data</h3>}
+            </div>
+
+
             </div>
         </div>
 
         </>
     )
 }
-export default MyNFT2;
+export default MyNFT3;
